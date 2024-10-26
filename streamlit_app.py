@@ -54,7 +54,7 @@ library_df = pd.read_csv(r"LIBRARY_202408 .csv")  # 도서관 데이터 로드
 sido_options = library_df['ONE_AREA_NM'].unique()  # 시도 목록 추출
 
 # 도서 데이터 로드 (행 수 제한 없이 전체 데이터 사용)
-data = load_data(r'BOOK_PUB_202408.csv.xlsx.xlsx')
+data = load_data(r'BOOK_PUB_202408.csv')
 
 # 지역 선택 (시도와 시군구)
 selected_sido = st.selectbox('시도를 선택하세요', ['전체'] + list(sido_options))
