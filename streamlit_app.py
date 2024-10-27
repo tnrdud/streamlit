@@ -46,25 +46,27 @@ def recommend_books(title, data, n_components=100):
 
     return book, recommended_books
 
-# Streamlit 앱 구성
-st.title('책책책 📚 책의 위치를 알려드리고, 유사 도서를 추천해드립니다😍')
+
+# 이미지 표시
+st.image('bb.png',use_column_width = True)
+st.header(":rainbow[책책책]📚 책의 :blue[위치]를 알려드리고,:orange[유사도서]를 추천해드립니다😍", divider="rainbow")
 
 # 도서관 데이터 로드 (전체 데이터 사용)
-library_df = pd.read_csv(r"LIBRARY_202408 .csv")  # 도서관 데이터 로드
+library_df = pd.read_csv(r"C:\Users\msy\Downloads\python\LIBRARY_202408 .csv")  # 도서관 데이터 로드
 sido_options = library_df['ONE_AREA_NM'].unique()  # 시도 목록 추출
 
 # 도서 데이터 로드 (행 수 제한 없이 전체 데이터 사용)
-data = load_data(r'BOOK_PUB_202408.csv')
+data = load_data(r'C:\Users\msy\Downloads\python\BOOK_PUB_202408.csv')
 
 # 지역 선택 (시도와 시군구)
-selected_sido = st.selectbox('시도를 선택하세요', ['전체'] + list(sido_options))
+selected_sido = st.selectbox('시도를 선택하세요.', ['전체'] + list(sido_options))
 
 if selected_sido != '전체':
     selected_sigungu = library_df[library_df['ONE_AREA_NM'] == selected_sido]['TWO_AREA_NM'].unique()
-    selected_sigungu = st.selectbox('시군구를 선택하세요', ['전체'] + list(selected_sigungu))
+    selected_sigungu = st.selectbox('시군구를 선택하세요.', ['전체'] + list(selected_sigungu))
 
 # 도서 제목 입력
-title_input = st.text_input('도서 제목을 입력하세요')
+title_input = st.text_input('도서 제목을 입력하세요.')
 
 # 입력한 도서 제목의 위치 출력 및 추천 도서 제공
 if title_input:
@@ -75,7 +77,7 @@ if title_input:
         # 리스트에서 선택할 수 있도록 책 제목 추출
         # book_titles = book_matches['TITLE_NM'].tolist()
         book_titles_with_authors = book_matches.apply(lambda row: f"{row['TITLE_NM']} by {row['AUTHR_NM']}", axis=1).tolist()
-        selected_book_info = st.selectbox("검색된 책 목록에서 선택하세요", options=book_titles_with_authors)
+        selected_book_info = st.selectbox("검색된 책 목록에서 선택하세요.", options=book_titles_with_authors)
 
         # 선택한 책의 정보를 가져오기
         selected_book_title = selected_book_info.split(" by ")[0]  # 선택한 제목
@@ -147,3 +149,40 @@ if title_input:
             st.write("추천할 유사 도서를 찾을 수 없습니다.")
     else:
         st.write('해당 도서 제목에 해당하는 책을 찾을 수 없습니다.')
+
+
+st.markdown(
+    """
+    <style>
+    .reportview-container {
+        background-color: #f0f0f0;  /* 원하는 배경색으로 변경 */
+    }
+    </style>
+    """,
+    unsafe_allow_html=True
+)
+import time 
+
+# 방법 1 progress bar 
+latest_iteration = st.empty()
+bar = st.progress(0)
+
+# # for i in range(100):
+#   # Update the progress bar with each iteration.
+#   latest_iteration.text(f'입장 중{i+1}')
+#   bar.progress(i + 1)
+#   time.sleep(0.05)
+#   # 0.05 초 마다 1씩증가
+
+if 'balloons_shown' not in st.session_state:
+    st.session_state['balloons_shown'] = False
+
+# 처음 열릴 때만 풍선 효과 실행
+if not st.session_state['balloons_shown']:
+    st.balloons()
+    st.session_state['balloons_shown'] = True
+
+with st.spinner('Wait for it...'):
+  time.sleep(5)
+  st.success('Done!')
+  
