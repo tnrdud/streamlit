@@ -52,7 +52,7 @@ st.image('bb.png',use_column_width = True)
 st.header(":rainbow[책책책]📚 책의 :blue[위치]를 알려드리고,:orange[유사도서]를 추천해드립니다😍", divider="rainbow")
 
 # 도서관 데이터 로드 (전체 데이터 사용)
-library_df = pd.read_csv(r"C:\Users\msy\Downloads\python\LIBRARY_202408 .csv")  # 도서관 데이터 로드
+library_df = pd.read_csv(r"LIBRARY_202408 .csv")  # 도서관 데이터 로드
 sido_options = library_df['ONE_AREA_NM'].unique()  # 시도 목록 추출
 
 # 도서 데이터 로드 (행 수 제한 없이 전체 데이터 사용)
